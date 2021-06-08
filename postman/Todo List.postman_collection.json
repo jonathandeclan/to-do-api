@@ -14,7 +14,14 @@
 						"exec": [
 							"pm.test(\"Get todo list\", function () {",
 							"    pm.response.to.have.status(200);",
-							"    pm.expect(pm.response.json()).to.be.an(\"array\");",
+							"    pm.expect(pm.response.json()).to.have.property('items');",
+							"    pm.expect(pm.response.json()).to.have.property('meta');",
+							"    pm.expect(pm.response.json().meta).to.have.property('totalItems');",
+							"    pm.expect(pm.response.json().meta).to.have.property('itemCount');",
+							"    pm.expect(pm.response.json().meta).to.have.property('itemsPerPage');",
+							"    pm.expect(pm.response.json().meta).to.have.property('totalPages');",
+							"    pm.expect(pm.response.json().meta).to.have.property('currentPage');",
+							"    pm.expect(pm.response.json().items).to.be.an(\"array\");",
 							"});"
 						],
 						"type": "text/javascript"
@@ -37,6 +44,70 @@
 					}
 				},
 				"url": {
+					"raw": "localhost:3000/todos/?page=1&limit=100",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"todos",
+						""
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "limit",
+							"value": "100"
+						},
+						{
+							"key": "status",
+							"value": "not done",
+							"disabled": true
+						},
+						{
+							"key": "priority",
+							"value": "0",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Todo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Create new todo\", function() {",
+							"    pm.response.to.have.status(201);",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property(\"id\");",
+							"   ",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\":\"test title\",\n    \"priority\": 0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
 					"raw": "localhost:3000/todos/",
 					"host": [
 						"localhost"
@@ -45,6 +116,61 @@
 					"path": [
 						"todos",
 						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a ToDo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Create new todo\", function() {",
+							"    pm.response.to.have.status(200);",
+							"   ",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/todos/:id",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"todos",
+						":id"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": null,
+							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "20"
+						}
 					]
 				}
 			},
@@ -100,14 +226,14 @@
 			"response": []
 		},
 		{
-			"name": "Delete a ToDo Copy",
+			"name": "Set ToDo Priority",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Create new todo\", function() {",
-							"    pm.response.to.have.status(200);",
+							"pm.test(\"Mark todo as done\", function() {",
+							"    pm.response.to.have.status(201);",
 							"   ",
 							"})"
 						],
@@ -116,7 +242,161 @@
 				}
 			],
 			"request": {
-				"method": "DELETE",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"priority\":2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/todos/:id/setpriority",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"todos",
+						":id",
+						"setpriority"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "18"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Set ToDo Due Date",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Mark todo as done\", function() {",
+							"    pm.response.to.have.status(201);",
+							"   ",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"date\":\"2021-06-09T14:30:51+0000\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/todos/:id/setduedate",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"todos",
+						":id",
+						"setduedate"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "19"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Set ToDo Status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Mark todo as done\", function() {",
+							"    pm.response.to.have.status(201);",
+							"   ",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\":\"blocked\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/todos/:id/setstatus",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"todos",
+						":id",
+						"setstatus"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "18"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a ToDo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Mark todo as done\", function() {",
+							"    pm.response.to.have.status(200);",
+							"     pm.expect(pm.response.json()).to.have.property('id');",
+							"     pm.expect(pm.response.json()).to.have.property('title');",
+							"     pm.expect(pm.response.json()).to.have.property('status');",
+							"     pm.expect(pm.response.json()).to.have.property('priority');",
+							"     pm.expect(pm.response.json()).to.have.property('dueDate');",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
 				"header": [],
 				"body": {
 					"mode": "raw",
@@ -137,62 +417,11 @@
 						"todos",
 						":id"
 					],
-					"query": [
-						{
-							"key": "id",
-							"value": null,
-							"disabled": true
-						}
-					],
 					"variable": [
 						{
 							"key": "id",
-							"value": "18"
+							"value": "12"
 						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Create Todo Copy",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Create new todo\", function() {",
-							"    pm.response.to.have.status(201);",
-							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData).to.have.property(\"id\");",
-							"   ",
-							"})"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"title\":\"test title\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:3000/todos/",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"todos",
-						""
 					]
 				}
 			},
