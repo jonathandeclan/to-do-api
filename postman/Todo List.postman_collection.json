@@ -33,7 +33,13 @@
 			},
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "x-user-id",
+						"value": "644baa04-0105-402b-a2af-188c202f60a0",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "",
@@ -61,16 +67,150 @@
 						{
 							"key": "limit",
 							"value": "100"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get List of Todos with Status filter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get todo list\", function () {",
+							"    pm.response.to.have.status(200);",
+							"    pm.expect(pm.response.json()).to.have.property('items');",
+							"    pm.expect(pm.response.json()).to.have.property('meta');",
+							"    pm.expect(pm.response.json().meta).to.have.property('totalItems');",
+							"    pm.expect(pm.response.json().meta).to.have.property('itemCount');",
+							"    pm.expect(pm.response.json().meta).to.have.property('itemsPerPage');",
+							"    pm.expect(pm.response.json().meta).to.have.property('totalPages');",
+							"    pm.expect(pm.response.json().meta).to.have.property('currentPage');",
+							"    pm.expect(pm.response.json().items).to.be.an(\"array\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-user-id",
+						"value": "644baa04-0105-402b-a2af-188c202f60a0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/todos/?page=1&limit=100&status=done",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"todos",
+						""
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "limit",
+							"value": "100"
 						},
 						{
 							"key": "status",
-							"value": "not done",
-							"disabled": true
+							"value": "done"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get List of Todos with Priority filter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get todo list\", function () {",
+							"    pm.response.to.have.status(200);",
+							"    pm.expect(pm.response.json()).to.have.property('items');",
+							"    pm.expect(pm.response.json()).to.have.property('meta');",
+							"    pm.expect(pm.response.json().meta).to.have.property('totalItems');",
+							"    pm.expect(pm.response.json().meta).to.have.property('itemCount');",
+							"    pm.expect(pm.response.json().meta).to.have.property('itemsPerPage');",
+							"    pm.expect(pm.response.json().meta).to.have.property('totalPages');",
+							"    pm.expect(pm.response.json().meta).to.have.property('currentPage');",
+							"    pm.expect(pm.response.json().items).to.be.an(\"array\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-user-id",
+						"value": "644baa04-0105-402b-a2af-188c202f60a0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/todos/?page=1&limit=100&priority=1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"todos",
+						""
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "limit",
+							"value": "100"
 						},
 						{
 							"key": "priority",
-							"value": "0",
-							"disabled": true
+							"value": "1"
 						}
 					]
 				}
@@ -97,10 +237,16 @@
 			],
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "x-user-id",
+						"value": "8e7ea484-aac8-401f-b2e6-422e9e104208",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"title\":\"test title\",\n    \"priority\": 0\n}",
+					"raw": "{\n    \"title\":\"test title1\",\n    \"priority\": 0\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -139,7 +285,13 @@
 			],
 			"request": {
 				"method": "DELETE",
-				"header": [],
+				"header": [
+					{
+						"key": "x-user-id",
+						"value": "644baa04-0105-402b-a2af-188c202f60a0",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "",
@@ -169,7 +321,7 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "20"
+							"value": "0bdd5b7d-6303-4e28-8117-bbe1c638ef74"
 						}
 					]
 				}
@@ -194,7 +346,13 @@
 			],
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "x-user-id",
+						"value": "644baa04-0105-402b-a2af-188c202f60a0",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "",
@@ -218,7 +376,7 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "18"
+							"value": "23c352cf-83bd-4085-95dd-a1a248b7bf64"
 						}
 					]
 				}
@@ -243,7 +401,13 @@
 			],
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "x-user-id",
+						"value": "644baa04-0105-402b-a2af-188c202f60a0",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n    \"priority\":2\n}",
@@ -267,7 +431,7 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "18"
+							"value": "23c352cf-83bd-4085-95dd-a1a248b7bf64"
 						}
 					]
 				}
@@ -292,7 +456,13 @@
 			],
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "x-user-id",
+						"value": "644baa04-0105-402b-a2af-188c202f60a0",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n    \"date\":\"2021-06-09T14:30:51+0000\"\n}",
@@ -316,7 +486,7 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "19"
+							"value": "23c352cf-83bd-4085-95dd-a1a248b7bf64"
 						}
 					]
 				}
@@ -341,7 +511,13 @@
 			],
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "x-user-id",
+						"value": "644baa04-0105-402b-a2af-188c202f60a0",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n    \"status\":\"blocked\"\n}",
@@ -365,7 +541,7 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "18"
+							"value": "23c352cf-83bd-4085-95dd-a1a248b7bf64"
 						}
 					]
 				}
@@ -373,7 +549,62 @@
 			"response": []
 		},
 		{
-			"name": "Get a ToDo",
+			"name": "Set ToDo Private",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Mark todo as done\", function() {",
+							"    pm.response.to.have.status(201);",
+							"   ",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-user-id",
+						"value": "644baa04-0105-402b-a2af-188c202f60a0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"private\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/todos/:id/setprivate",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"todos",
+						":id",
+						"setprivate"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "23c352cf-83bd-4085-95dd-a1a248b7bf64"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a ToDo by id",
 			"event": [
 				{
 					"listen": "test",
@@ -397,7 +628,13 @@
 			},
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "x-user-id",
+						"value": "644baa04-0105-402b-a2af-188c202f60a0",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "",
@@ -420,7 +657,194 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "12"
+							"value": "23c352cf-83bd-4085-95dd-a1a248b7bf64"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Create new todo\", function() {",
+							"    pm.response.to.have.status(201);",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property(\"id\");",
+							"   ",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"test user3\",\n    \"email\": \"test3@test.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/users/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Mark todo as done\", function() {",
+							"    pm.response.to.have.status(200);",
+							"     pm.expect(pm.response.json()).to.have.property('id');",
+							"     pm.expect(pm.response.json()).to.have.property('name');",
+							"     pm.expect(pm.response.json()).to.have.property('email');",
+							"     pm.expect(pm.response.json()).to.have.property('friends');",
+							"     pm.expect(pm.response.json()).to.have.property('friendOf');",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/users/f62275b9-67d0-4ca6-8885-90a35b0d30ce",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"f62275b9-67d0-4ca6-8885-90a35b0d30ce"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Mark todo as done\", function() {",
+							"    pm.response.to.have.status(200);",
+							"     pm.expect(pm.response.json()).to.be.an(\"array\");",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/users/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add friend",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Create new todo\", function() {",
+							"    pm.response.to.have.status(201);",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property(\"id\");",
+							"   ",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/users/:id/addfriend/:friendId",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						":id",
+						"addfriend",
+						":friendId"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "644baa04-0105-402b-a2af-188c202f60a0",
+							"description": "user id"
+						},
+						{
+							"key": "friendId",
+							"value": "f62275b9-67d0-4ca6-8885-90a35b0d30ce",
+							"description": "user id of friend to add"
 						}
 					]
 				}

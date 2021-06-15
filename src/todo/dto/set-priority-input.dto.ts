@@ -1,5 +1,5 @@
 import { IsEnum, IsNotEmpty } from 'class-validator';
-import { Priority } from '../models/todo.entity';
+import { Priority } from '../entities/todo.entity';
 export class SetPriorityInputDTO {
   @IsEnum(Priority)
   @IsNotEmpty()

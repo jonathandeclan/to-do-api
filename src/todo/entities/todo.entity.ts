@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { IsNotEmpty } from 'class-validator';
+import { User } from 'src/user/entities/user.entity';
 
 export enum Status {
   NOT_DONE = 'not done',
@@ -17,8 +18,8 @@ export enum Priority {
 
 @Entity()
 export class Todo {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
   @IsNotEmpty()
@@ -30,6 +31,12 @@ export class Todo {
   @Column({ type: 'int', default: Priority.NORMAL })
   priority: Priority;
 
+  @Column({ type: 'boolean', default: false })
+  private: boolean;
+
   @Column({ type: 'datetime', nullable: true })
   dueDate: Date;
+
+  @ManyToOne(() => User, (user) => user.todos)
+  owner: User;
 }

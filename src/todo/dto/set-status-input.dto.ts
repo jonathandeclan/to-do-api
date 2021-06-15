@@ -1,5 +1,5 @@
 import { IsEnum, IsNotEmpty } from 'class-validator';
-import { Status } from '../models/todo.entity';
+import { Status } from '../entities/todo.entity';
 export class SetStatusInputDTO {
   @IsEnum(Status)
   @IsNotEmpty()
